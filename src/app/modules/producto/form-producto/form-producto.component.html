@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{ data ? 'Actualizar' : 'Agregar' }} Producto</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="formProducto">
+      <div style="display: flex; flex-direction: column; width: 100%;">
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input [disabled]="isLoading" matInput formControlName="nombre_producto" required>
+        <mat-error *ngIf="formProducto.get('nombre_producto')?.hasError('required')">Nombre es requerido</mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="fill">
+        <mat-label>Categoria</mat-label>
+        <input [disabled]="isLoading" matInput formControlName="categoria" required>
+        <mat-error *ngIf="formProducto.get('categoria')?.hasError('required')">Categoria es requerida</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Unidad Med.</mat-label>
+        <mat-select [disabled]="isLoading" formControlName="unidad_medida">
+          <mat-option value="lb">Libra</mat-option>
+          <mat-option value="kg">Kilos</mat-option>
+        </mat-select>
+        <mat-error *ngIf="formProducto.get('unidad_medida')?.hasError('required')">Unidad es requerida</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Comentario</mat-label>
+        <textarea [disabled]="isLoading" matInput formControlName="comentario"></textarea>
+      </mat-form-field>
+  
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" mat-dialog-close [disabled]="isLoading">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="formProducto.invalid || isLoading" (click)=" data ? update() : guardar()">
+    <i class="fa-solid fa-spinner fa-spin" *ngIf="isLoading"></i>
+    {{ data ? 'Actualizar' : 'Agregar' }}
+  </button>
+</mat-dialog-actions>

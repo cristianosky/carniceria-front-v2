@@ -1,0 +1,92 @@
+<h2>Facturar</h2>
+
+<ng-template #facturaContem>
+    <div class="cuerpo-factura" *ngIf="factura">
+        <div class="cuerpo-header">
+            <p style="margin: 0px;">Fecha: {{ fecha | date }}</p>
+            <p style="margin: 0px;">Factura Nro: #<span style="font-weight: 600;">{{factura?.id_venta}}</span></p>
+        </div>
+        <div style="height: 100%;">
+            <div class="container-item">
+                <mat-card class="example-card" *ngFor="let item of productosFactura">
+                    <div>
+                        <mat-card-header>
+                            <mat-card-title>{{item.nombre_producto}}</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <p>Cant: {{item.cantidad}} ({{item.unidad_medida == 'lb' ? 'LB' : 'KG' }})</p>
+                            <p>Total: {{item.subtotal | currency:'':'symbol':'1.0'}}</p>
+                        </mat-card-content>
+                    </div>
+                    <div class="container-botones">
+                        <button mat-stroked-button color="warn" style="width: 100%;" (click)="eliminarProducto(item)">
+                            <mat-icon>remove_shopping_cart</mat-icon>
+                        </button>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+        <div class="footer-header">
+            <p style="margin: 0px;">Total:</p>
+            <p style="margin: 0px; font-weight: 600;">{{ factura.total_venta ? factura.total_venta : 0 | currency:'':'symbol':'1.0' }}</p>
+            <p style="margin: 0px;">
+                <button mat-raised-button color="primary" (click)="pagarVenta()">Pagar</button>
+            </p>
+        </div>
+    </div>
+</ng-template>
+
+<div class="container">
+    <div class="listado-producto">
+        <div class="container-factura">
+            <div class="header-serch">
+                <div class="serch">
+                    <mat-form-field class="example-form-field" style="width: 100%;">
+                        <mat-label>Busqueda</mat-label>
+                        <input matInput type="text" [formControl]="busqueda">
+                        <button *ngIf="busqueda.value" matSuffix mat-icon-button aria-label="Clear" (click)="busqueda.reset()">
+                          <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                <div class="botones">
+                    <!-- botton de busqueda -->
+                    <button mat-stroked-button color="primary" (click)="getInventario(busqueda.value)">Buscar</button>
+                </div>
+            </div>
+            <div style="margin-top: 19px;">
+                <div class="container-item">
+                    <mat-card class="example-card" *ngFor="let item of productos">
+                        <div>
+                            <mat-card-header>
+                                <mat-card-title>{{item.nombre_producto}}</mat-card-title>
+                                <mat-card-subtitle>{{item.fecha_actualizacion | date}}</mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <p>Cant.: {{item.cantidad}} ({{item.unidad_medida == 'lb' ? 'LB' : 'KG' }})</p>
+                                <p>Precio Uni.: {{item.precio_unitario | currency:'':'symbol':'1.0'}}</p>
+                            </mat-card-content>
+                        </div>
+                        <div class="container-botones">
+                            <button mat-stroked-button color="primary" style="width: 100%;" (click)="agregarProducto(item)">
+                                <mat-icon>add_shopping_cart</mat-icon>
+                            </button>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="factura">
+        <ng-container *ngTemplateOutlet="facturaContem"></ng-container>
+    </div>
+</div>
+
+<button mat-fab color="primary" [matBadge]="productosFactura.length" matBadgeColor="warn" *ngIf="productosFactura.length > 0" class="boton-flotante" (click)="toggleDiv()">
+    <i class="fas fa-shopping-cart" style="font-size: 20px;"></i>
+</button>
+
+<div *ngIf="isDivVisible" class="floating-div">
+  <ng-container *ngTemplateOutlet="facturaContem"></ng-container>
+</div>

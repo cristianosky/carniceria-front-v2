@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>{{ data ? 'Actualizar' : 'Agregar' }} Inventario</h2>
+<mat-dialog-content class="mat-typography">
+  <div style="display: flex; flex-direction: column;">
+    <ng-template #noData>
+      <mat-form-field>
+        <input type="text" matInput placeholder="" [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option" >
+            {{ option.nombre_producto }} {{ option.precio_unitario | currency }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </ng-template>
+
+    <ng-container *ngIf="data; else noData">
+      <mat-form-field appearance="fill">
+        <mat-label>Producto</mat-label>
+        <input matInput formControlName="nombre_producto" [value]="data.nombre_producto" [disabled]="true">
+      </mat-form-field>
+    </ng-container>
+    <form [formGroup]="formInventario">
+      <div style="display: flex; flex-direction: column;">
+        <mat-form-field appearance="fill">
+            <mat-label>Cantidad</mat-label>
+            <input matInput formControlName="cantidad" required>
+            <mat-error *ngIf="formInventario.get('cantidad')?.hasError('required')">Campo requerido</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Precio</mat-label>
+            <input matInput formControlName="precio_unitario" required>
+            <mat-error *ngIf="formInventario.get('precio_unitario')?.hasError('required')">Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="warn" mat-dialog-close [disabled]="isLoading">Cancelar</button>
+    <button mat-raised-button color="primary" [disabled]="formInventario.invalid || isLoading" (click)=" data ? update() : guardar()">
+        <i class="fa-solid fa-spinner fa-spin" *ngIf="isLoading"></i>
+        {{ data ? 'Actualizar' : 'Agregar' }}
+      </button>
+</mat-dialog-actions>

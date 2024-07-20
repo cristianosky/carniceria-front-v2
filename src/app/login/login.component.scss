@@ -1,0 +1,72 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    height: 100vh;
+    width: 100vw;
+}
+
+.grid-container {
+  margin: 20px;
+}
+
+.dashboard-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.dashboard-card-content {
+  text-align: center;
+}
+
+.conte-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 10%;
+    margin-bottom: 10% !important;
+}
+
+.img-login {
+  background-image: url('../../assets/Designer.jpeg');
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container-login {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// Pantalla pequeña container-login name
+@media screen and (max-width: 600px) {
+    .img-login  {
+        display: none;
+    }
+
+    .container-login {
+        background-image: url('../../assets/Designer.jpeg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        opacity: 0.8;
+        background-position-x: center;
+    }
+
+}
+
+  

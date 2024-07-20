@@ -1,0 +1,63 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      @for (item of rootRoutes; track $index) {
+        <a
+            mat-list-item
+            [routerLink]="item.path"
+            #link="routerLinkActive"
+            routerLinkActive
+            [activated]="link.isActive"
+        >
+            {{ item.title }}
+        </a>
+      }
+    </mat-nav-list>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      @if (isHandset$ | async) {
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      }
+      @if (!(isHandset$ | async)) {
+        <span>Carniceria Buena Fe</span>
+      }
+      <span class="spacer"></span>
+      <button mat-button matTooltip="My Account" [matMenuTriggerFor]="userAccountMenu">
+        {{user?.nombre}}
+          <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #userAccountMenu [overlapTrigger]="false" yPosition="below">
+          <!-- <button mat-menu-item routerLink="#">
+              <mat-icon>person</mat-icon><span>My Account</span>
+          </button>
+          <button mat-menu-item routerLink="#">
+              <mat-icon>settings</mat-icon><span>Settings</span>
+          </button>
+          <button mat-menu-item routerLink="#">
+              <mat-icon>help</mat-icon><span>Help</span>
+          </button> -->
+          <mat-divider></mat-divider>
+          <button mat-menu-item routerLink="#" (click)="logout()">
+              <mat-icon>exit_to_app</mat-icon>Salir
+          </button>
+      </mat-menu>
+    </mat-toolbar>
+    <div class="sidenav-scroll-wrapper">
+      <div class="sidenav-content">
+        <router-outlet />
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

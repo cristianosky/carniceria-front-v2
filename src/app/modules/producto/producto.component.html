@@ -1,0 +1,49 @@
+<div class="container-factura">
+    <div class="header-serch">
+        <div class="serch">
+            <mat-form-field class="example-form-field" style="width: 100%;">
+                <mat-label>Busqueda</mat-label>
+                <input matInput type="text" [formControl]="busqueda">
+                <button *ngIf="busqueda.value" matSuffix mat-icon-button aria-label="Clear" (click)="busqueda.reset()">
+                  <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div class="botones">
+            <!-- botton de busqueda -->
+            <button mat-stroked-button color="primary" (click)="getProducto(busqueda.value)">Buscar</button>
+
+            <button mat-raised-button color="primary" (click)="openDialog()">Agregar Producto</button>
+        </div>
+    </div>
+    <div style="width: 100%; margin-top: 10px;">
+        <div class="container-item">
+            <mat-card class="example-card" *ngFor="let item of dataSource">
+                <div>
+                    <mat-card-header>
+                        <mat-card-title>{{item.nombre_producto}}</mat-card-title>
+                        <mat-card-subtitle>{{item.fecha_ingreso | date}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div style="display: flex; flex-direction: column;">
+                            <p>Categoria: {{item.categoria}}</p>
+                            <p>Unidad Medida: {{item.unidad_medida == 'lb' ? 'Libra' : 'Kilo'}}</p>
+                        </div>
+                    </mat-card-content>
+
+                </div>
+                <mat-card-footer>
+                    <div class="container-botones">
+                        <!-- Botones eliminar y editar -->
+                        <button mat-raised-button color="primary" class="botones" (click)="openDialog(item)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-raised-button color="warn" class="botones" (click)="deleteProducto(item)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </mat-card-footer>
+            </mat-card>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="background" style="height: 100%; width: 100%;">
+    <!-- <h1>Iniciar Session</h1> -->
+     <div class="container">
+        <div class="container-login">
+            <mat-card appearance="outlined" style="width: 80%;">
+                <mat-card-header>
+                    <mat-card-title>
+                        <span class="text">Iniciar Session</span>
+                    </mat-card-title>
+                </mat-card-header>
+        
+                <mat-card-content>
+                    <div class="conte-login">
+                        <form [formGroup]="formLogin">
+                            <mat-form-field style="width: 100%;">
+                                <input matInput placeholder="Usuario" formControlName="usuario">
+                            </mat-form-field>
+
+                            <mat-form-field style="width: 100%;">
+                                <input matInput  [type]="hide ? 'password' : 'text'" placeholder="Contraseña" formControlName="contrasena">
+                                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                  </button>
+                            </mat-form-field>
+
+                            <button mat-flat-button color="primary" style="width: 100%;" (click)="login()" [disabled]="isLoading">Iniciar Session</button>
+                        </form>
+                    </div>
+                </mat-card-content>
+                
+                <mat-card-footer>
+                    @if (isLoading) {
+                        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                    }
+                </mat-card-footer>
+        
+            </mat-card>
+        </div>
+        <div class="img-login">
+            
+        </div>
+     </div>
+    
+</div>

@@ -60,4 +60,8 @@ export class ProductosService {
   pagarVenta(id_ventas: any) {
     return this._appService.getQuery(`pagarVenta/${id_ventas}`, 'put');
   }
+
+  masVendidos(fechaInicio: string, fechaFin: string) {
+    return this._appService.getQuery(`productoMasVendido?fecha_inicio=${fechaInicio}&fecha_fin=${fechaFin}`, 'get');
+  }
 }

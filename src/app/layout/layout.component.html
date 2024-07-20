@@ -6,16 +6,28 @@
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       @for (item of rootRoutes; track $index) {
-        <a
+        @if (isHandset$ | async) {
+          <a
+          mat-list-item
+          [routerLink]="item.path"
+          #link="routerLinkActive"
+          routerLinkActive
+          [activated]="link.isActive"
+          (click)="drawer.toggle()"
+        >
+            {{ item.title }}
+        </a>
+        } @else {
+          <a
             mat-list-item
             [routerLink]="item.path"
             #link="routerLinkActive"
             routerLinkActive
             [activated]="link.isActive"
-            (click)="drawer.toggle()"
-        >
-            {{ item.title }}
-        </a>
+          >
+              {{ item.title }}
+          </a>
+        }
       }
     </mat-nav-list>
 
@@ -37,7 +49,7 @@
       <span class="spacer"></span>
       <button mat-button matTooltip="My Account" [matMenuTriggerFor]="userAccountMenu">
         {{user?.nombre}}
-          <mat-icon>account_circle</mat-icon>
+          <mat-icon style="font-size: 2rem; width: 2rem; height: 2rem;">account_circle</mat-icon>
       </button>
       <mat-menu #userAccountMenu [overlapTrigger]="false" yPosition="below">
           <!-- <button mat-menu-item routerLink="#">
@@ -49,7 +61,7 @@
           <button mat-menu-item routerLink="#">
               <mat-icon>help</mat-icon><span>Help</span>
           </button> -->
-          <mat-divider></mat-divider>
+          <!-- <mat-divider></mat-divider> -->
           <button mat-menu-item routerLink="#" (click)="logout()">
               <mat-icon>exit_to_app</mat-icon>Salir
           </button>

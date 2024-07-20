@@ -51,7 +51,7 @@ export class LoginComponent {
         localStorage.setItem('token', response.access_token);
         localStorage.setItem('user', JSON.stringify(response.usuario));
         this.isLoading = false;
-        window.location.href = '/';
+        window.location.href = '/dashboard';
       }, (error) => {
         console.error(error.error.error);
         this.mensajeError = error.error.error;

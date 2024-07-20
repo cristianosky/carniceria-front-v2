@@ -12,6 +12,7 @@
             #link="routerLinkActive"
             routerLinkActive
             [activated]="link.isActive"
+            (click)="drawer.toggle()"
         >
             {{ item.title }}
         </a>

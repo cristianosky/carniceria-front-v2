@@ -5,7 +5,9 @@
     background-color: rgba(mat.get-theme-color($theme, primary-container), 0.75);
   }
 
-  // texto blanco cuando sea dark
+  .text {
+    color: if(mat.get-theme-type($theme) == 'dark', white, black);
+  }
   
 
   .background{

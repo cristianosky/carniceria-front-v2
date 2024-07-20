@@ -95,7 +95,8 @@ export class Dashboard2Component {
       legend: {
         labels: {
           colors: this.isDarkTheme ? '#FFFFFF' : '#000000'
-        }
+        },
+        position: 'bottom'
       }
     };
   }

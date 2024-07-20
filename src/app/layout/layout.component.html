@@ -4,31 +4,42 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-      @for (item of rootRoutes; track $index) {
-        @if (isHandset$ | async) {
-          <a
-          mat-list-item
-          [routerLink]="item.path"
-          #link="routerLinkActive"
-          routerLinkActive
-          [activated]="link.isActive"
-          (click)="drawer.toggle()"
-        >
-            {{ item.title }}
-        </a>
-        } @else {
-          <a
-            mat-list-item
-            [routerLink]="item.path"
-            #link="routerLinkActive"
-            routerLinkActive
-            [activated]="link.isActive"
-          >
-              {{ item.title }}
+    <mat-nav-list style="height: 89%;">
+      <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          @for (item of rootRoutes; track $index) {
+            @if (isHandset$ | async) {
+              <a
+              mat-list-item
+              [routerLink]="item.path"
+              #link="routerLinkActive"
+              routerLinkActive
+              [activated]="link.isActive"
+              (click)="drawer.toggle()"
+            >
+                {{ item.title }}
+            </a>
+            } @else {
+              <a
+                mat-list-item
+                [routerLink]="item.path"
+                #link="routerLinkActive"
+                routerLinkActive
+                [activated]="link.isActive"
+              >
+                  {{ item.title }}
+              </a>
+            }
+          }
+        </div>
+        <div>
+          <mat-divider></mat-divider>
+          <a mat-list-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Salir</span>
           </a>
-        }
-      }
+        </div>
+      </div>
     </mat-nav-list>
 
   </mat-sidenav>

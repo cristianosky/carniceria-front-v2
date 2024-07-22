@@ -1,5 +1,6 @@
 export const environment = {
-    url: 'http://localhost:5000/',
+    // url: 'http://localhost:5000/',
+    url: 'https://api-node-carniceria.onrender.com/',
     firebaseConfig: {
         apiKey: "AIzaSyCFDAOLSCsb0q09fKGnAO2cJQGMfvcAR7w",
         authDomain: "carniceria-983ff.firebaseapp.com",
